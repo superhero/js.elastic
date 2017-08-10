@@ -16,7 +16,6 @@ schema = {
     properties : {
       email : {
           type : elastic.datatype.keyword,
-          index : true
       }
     }
   }
@@ -30,8 +29,7 @@ create_schema = {
     test_type : {
       properties : {
         email : {
-            type : elastic.datatype.keyword,
-            index : false
+            type : 'string',
         }
       }
     }
@@ -83,6 +81,14 @@ flow.waterfall(
     db.put({url : `/${index_name}`, headers, data : create_schema}, (error, result) => {
       if(error || !okstatus(result.status))
         cb(error || `Error on setup, create schema:\n${JSON.stringify(result, null, 2)}`);
+      else cb();
+    });
+  },
+  (cb) => {
+    //add some data
+    db.post({url : `/${index_name}/test_type`, headers, data : { email : 'test@name.com', roles : [] }}, (error, result) => {
+      if(error || !okstatus(result.status))
+        cb(error || `Error on setup, create add data:\n${JSON.stringify(result, null, 2)}`);
       else {
         console.log("ok");
         cb();

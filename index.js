@@ -4,7 +4,6 @@ flow    = require('@superhero/flow'),
 compare = require('./lib/compare'),
 okstatus = require('./lib/okstatus');
 
-//'http://elastic.adamo.es:9200'
 module.exports =
 {
   datatype : {
@@ -173,6 +172,17 @@ module.exports =
       put   : (...args) => filter('put',     ...args),
       post  : (...args) => filter('post',    ...args),
       delete: (...args) => filter('delete',  ...args),
+      /* index(index_name, schema, update, cb)
+      index_name: string -> name_of_an_index
+      schema: object -> new schema for that index, { type : { properties { prop1 { type: elastic.datatype}}}})
+      update: boolean -> if true and given schema and db schema doesnt match,
+        will create a temporal copy of the index with the given schema,
+        add the data to the temp index
+        delete THE ENTIRE given index
+        create the index again with the given schema,
+        move the data back to the new index with the given name
+        copping the data
+      cb: function -> callback function */
       index : (index_name, schema, update, cb) => {
         //We ask fro the mapping schema
         face.get({ url : `/${index_name}/_mapping?pretty=true`}, (error, result) =>
