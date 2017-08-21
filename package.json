@@ -24,9 +24,7 @@
   },
   "homepage": "https://github.com/superhero/js.elastic#readme",
   "dependencies": {
-    "@superhero/request": "^0.2.1"
-  },
-  "devDependencies": {
+    "@superhero/request": "^0.2.1",
     "@superhero/flow": "^0.3.2"
   }
 }
