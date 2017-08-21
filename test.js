@@ -20,7 +20,7 @@ schema = {
     }
   }
 };
-//Test helping vars
+//Test helping vars!
 const
 headers = { 'content-type' : 'application/json' },
 temp_index_name = 'tmp_' + index_name,
